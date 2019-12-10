@@ -1,0 +1,22 @@
+{
+  "name": "solidity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "deploy.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node deploy.js",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ganache-cli": "^6.7.0",
+    "mocha": "^6.2.2",
+    "solc": "^0.5.13",
+    "web3": "^1.2.4"
+  }
+}
