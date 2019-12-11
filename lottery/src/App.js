@@ -1,13 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { getManager, getPlayers } from "./redux/actions/lotteryActions";
+
 import web3 from "./web3";
 
 import "./App.css";
 import lottery from "./lottery";
 
 const initialState = {
-  mananger: "",
-  players: [],
-  balance: "",
   value: "",
   message: ""
 };
@@ -15,10 +15,9 @@ class App extends React.Component {
   state = initialState;
 
   async componentDidMount() {
-    const manager = await lottery.methods.manager().call();
-    const players = await lottery.methods.getPlayers().call();
-    const balance = await web3.eth.getBalance(lottery.options.address);
-    this.setState({ manager, players, balance });
+    this.props.getManager();
+    this.props.getPlayers();
+    // const balance = await getBalance();
   }
 
   handleChange = event => {
@@ -50,12 +49,13 @@ class App extends React.Component {
     this.setState({ message: "A winner is picked." });
   };
   render() {
-    const { manager, players, balance, value, message } = this.state;
+    const { players, value, message } = this.state;
+    const { manager, playersLength, balance } = this.props;
     return (
       <div>
         <h2>Lottery Contract</h2>
         <p>This contract is managed by {manager}.</p>
-        <p>There are currently {players.length} people entered, competing to</p>
+        <p>There are currently {playersLength} people entered, competing to</p>
         <p>win {web3.utils.fromWei(balance, "ether")} ether!</p>
         <hr />
 
@@ -83,4 +83,11 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  loading: state.lottery.loading,
+  manager: state.lottery.manager,
+  playersLength: state.lottery.players.length,
+  balance: state.lottery.balance
+});
+
+export default connect(mapStateToProps, { getManager, getPlayers })(App);
