@@ -2,9 +2,11 @@ import {
   LOADING,
   ENTER_SUCCESS,
   ENTER_ERROR,
+  GET_WINNER_ERROR,
   GET_BALANCE_SUCCESS,
   GET_PLAYERS_SUCCESS,
-  GET_MANAGER_SUCCESS
+  GET_MANAGER_SUCCESS,
+  GET_WINNER_SUCCESS
 } from "./actions";
 
 import web3 from "../../web3";
@@ -23,12 +25,22 @@ export const enterLottery = () => async dispatch => {
     ///
     dispatch(enterSuccess());
   } catch (error) {
-    dispatch(enterError());
+    dispatch(enterError(error));
   }
 };
 
-// const players = await lottery.methods.getPlayers().call();
-// const balance = await web3.eth.getBalance(lottery.options.address);
+export const getWinner = () => async dispatch => {
+  try {
+    dispatch(loading());
+    const accounts = await web3.eth.getAccounts();
+    const response = await lottery.methods.winner().send({
+      from: accounts[0]
+    });
+    dispatch(getWinnerSuccess("Winner was picked poggers"));
+  } catch (error) {
+    dispatch(getWinnerError(error));
+  }
+};
 
 export const getBalance = () => async dispatch => {
   try {
@@ -36,8 +48,9 @@ export const getBalance = () => async dispatch => {
     const balance = await web3.eth.getBalance(lottery.options.address);
 
     dispatch(getBalanceSuccess(balance));
+    console.log(balance, "balance");
   } catch (error) {
-    dispatch(enterError());
+    dispatch(enterError(error));
   }
 };
 
@@ -92,10 +105,28 @@ const getBalanceSuccess = payload => {
   };
 };
 
+const getWinnerSuccess = payload => {
+  return {
+    type: GET_WINNER_SUCCESS,
+    payload
+  };
+};
+
 const enterError = payload => {
   return {
     type: ENTER_ERROR,
     payload
+  };
+};
+
+const getWinnerError = payload => {
+  const errors = {
+    4001: "Manager denied picking a winner! Redistributing balances..."
+  };
+  console.log(errors[payload.code], "errors");
+  return {
+    type: GET_WINNER_ERROR,
+    payload: errors[payload.code]
   };
 };
 
