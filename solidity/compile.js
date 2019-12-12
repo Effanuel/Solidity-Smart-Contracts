@@ -11,9 +11,12 @@ const lotteryJSON = require("./build/contracts/Lottery.json");
 // // module.exports =
 
 const bytecode = lotteryJSON.bytecode;
-const interface = lotteryJSON.abi;
+const abi = lotteryJSON.abi;
 
-export { bytecode, interface };
+module.exports = {
+  bytecode: bytecode,
+  abi: abi
+};
 
 // module.exports = {
 //   bytecode: bytecode,
