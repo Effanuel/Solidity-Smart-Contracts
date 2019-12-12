@@ -1,0 +1,13 @@
+@import "../../css/root.css";
+
+.Card {
+  background-color: var(--secondaryColor);
+  color: white;
+  box-shadow: 2px 2px black;
+  margin: 5px;
+}
+
+.Card:hover {
+  box-shadow: 2px 2px var(--accentColor);
+  transition: 0.2s;
+}

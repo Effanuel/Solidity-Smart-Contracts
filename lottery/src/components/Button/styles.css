@@ -1,0 +1,27 @@
+@import "../../css/root.css";
+
+.Button {
+  border: none;
+  background-color: var(--primaryColor);
+  color: white;
+  box-shadow: 2px 2px black;
+  outline: none;
+}
+
+.Button:hover {
+  background-color: var(--primaryColor);
+  transition: 0.2s;
+  box-shadow: 2px 2px var(--accentColor);
+}
+
+.Button:focus {
+  border: none;
+  background-color: var(--primaryColor);
+  color: white;
+  outline: none;
+  box-shadow: 2px 2px black;
+}
+
+.Button:active {
+  background-color: green;
+}
