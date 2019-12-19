@@ -5,24 +5,40 @@ import {
   GET_WINNER_ERROR,
   GET_BALANCE_SUCCESS,
   GET_PLAYERS_SUCCESS,
-  GET_MANAGER_SUCCESS,
+  GET_TICKETS_SUCCESS,
+  GET_ALL_TICKETS_SUCCESS,
   GET_WINNER_SUCCESS
 } from "./actions";
 
 import web3 from "../../web3";
 import lottery from "../../lottery";
 
-// case GET_BALANCE:
-// return { ...state };
-// case GET_PLAYERS:
-// return { ...state };
-// case GET_MANAGER:
-// return { ...state };
-
 export const enterLottery = () => async dispatch => {
   try {
     dispatch(loading());
-    ///
+    ///    console.log("go");
+    const accounts = await web3.eth.getAccounts();
+
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei("0.025", "ether")
+    });
+    // console.log(response);
+    // console.log(tickets, "TOCKLETS");
+    dispatch(enterSuccess());
+    dispatch(updateState(accounts[0]));
+  } catch (error) {
+    // console.log(error, "entererrror");
+    dispatch(enterError(error));
+  }
+};
+
+export const updateState = payload => async dispatch => {
+  try {
+    dispatch(loading());
+    dispatch(getPlayers());
+    dispatch(getTicketCount(payload));
+    dispatch(getAllTicketCount());
     dispatch(enterSuccess());
   } catch (error) {
     dispatch(enterError(error));
@@ -36,44 +52,57 @@ export const getWinner = () => async dispatch => {
     const response = await lottery.methods.winner().send({
       from: accounts[0]
     });
-    dispatch(getWinnerSuccess("Winner was picked poggers"));
+    console.log(response);
+    dispatch(getWinnerSuccess("Winner was picked."));
   } catch (error) {
     dispatch(getWinnerError(error));
   }
 };
 
-export const getBalance = () => async dispatch => {
-  try {
-    dispatch(loading());
-    const balance = await web3.eth.getBalance(lottery.options.address);
+// export const getBalance = () => async dispatch => {
+//   try {
+//     dispatch(loading());
 
-    dispatch(getBalanceSuccess(balance));
-    console.log(balance, "balance");
-  } catch (error) {
-    dispatch(enterError(error));
-  }
-};
+//     const balance = await web3.eth.getBalance(lottery.options.address);
+//     console.log(balance, "balance");
+//     dispatch(getBalanceSuccess(balance));
+//   } catch (error) {
+//     dispatch(enterError(error));
+//   }
+// };
 
 export const getPlayers = () => async dispatch => {
   try {
     dispatch(loading());
     console.log("loading palyers");
     const response = await lottery.methods.getPlayers().call();
+    // console.log(response, "ticket count");
     dispatch(getPlayersSuccess(response));
-    console.log(response, "players");
   } catch (error) {
-    dispatch(enterError());
+    console.log("GET PLAYERS ERROR");
+    dispatch(enterError(error));
   }
 };
 
-export const getManager = payload => async dispatch => {
+export const getTicketCount = payload => async dispatch => {
   try {
     dispatch(loading());
-    const response = await lottery.methods.manager().call();
-    dispatch(getManagerSuccess(response));
+    const response = await lottery.methods.getTicketCount(payload).call();
+    dispatch(getTicketCountSuccess(response));
     console.log(response, "manager");
   } catch (error) {
-    dispatch(enterError());
+    console.log(error, "ERR");
+  }
+};
+
+export const getAllTicketCount = payload => async dispatch => {
+  try {
+    dispatch(loading());
+    const response = await lottery.methods.getAllTicketCount().call();
+    dispatch(getAllTicketCountSuccess(response));
+    console.log(response, "manager");
+  } catch (error) {
+    console.log(error, "ERR");
   }
 };
 
@@ -84,9 +113,16 @@ const enterSuccess = payload => {
   };
 };
 
-const getManagerSuccess = payload => {
+const getTicketCountSuccess = payload => {
   return {
-    type: GET_MANAGER_SUCCESS,
+    type: GET_TICKETS_SUCCESS,
+    payload
+  };
+};
+
+const getAllTicketCountSuccess = payload => {
+  return {
+    type: GET_ALL_TICKETS_SUCCESS,
     payload
   };
 };
@@ -98,12 +134,12 @@ const getPlayersSuccess = payload => {
   };
 };
 
-const getBalanceSuccess = payload => {
-  return {
-    type: GET_BALANCE_SUCCESS,
-    payload
-  };
-};
+// const getBalanceSuccess = payload => {
+//   return {
+//     type: GET_BALANCE_SUCCESS,
+//     payload
+//   };
+// };
 
 const getWinnerSuccess = payload => {
   return {
@@ -113,9 +149,13 @@ const getWinnerSuccess = payload => {
 };
 
 const enterError = payload => {
+  const errors = {
+    4001: "User denied access."
+  };
+  console.log(errors, payload, "errors");
   return {
     type: ENTER_ERROR,
-    payload
+    payload: errors[payload.code]
   };
 };
 
