@@ -23,6 +23,11 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require("truffle-hdwallet-provider");
+const mnemonic =
+  "tray mobile witness vapor kit omit pride rail cat boss hunt olive";
+const endpoint =
+  "https://ropsten.infura.io/v3/4f4f50d269614dd0a4c2d5dc26026507";
 
 module.exports = {
   /**
@@ -46,6 +51,10 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*" // Any network (default: none)
+    },
+    ropsten: {
+      provider: () => new HDWalletProvider(mnemonic, endpoint),
+      network_id: 3
     }
 
     // Another network with more advanced options...

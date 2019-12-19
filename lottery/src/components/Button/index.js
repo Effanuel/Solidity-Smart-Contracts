@@ -3,13 +3,13 @@ import { Button } from "react-bootstrap";
 
 import "./styles.css";
 
-function ButtonComponent({ text, size, onClick }) {
+function ButtonComponent({ text, size, onClick, ...otherProps }) {
   return (
-    <div>
-      <Button className="Button" size={size} onClick={onClick}>
+    <>
+      <Button className="Button" size={size} onClick={onClick} {...otherProps}>
         {text}
       </Button>
-    </div>
+    </>
   );
 }
 

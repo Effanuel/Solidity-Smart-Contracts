@@ -1,9 +1,14 @@
 import React from "react";
-import { Spinner } from "react-bootstrap";
-function SpinnerComponent(props) {
+import { BarLoader } from "react-spinners";
+function SpinnerComponent({ loading, height }) {
   return (
     <div>
-      <Spinner animation="border" />
+      <BarLoader
+        color="#00ca45"
+        loading={loading}
+        height={height}
+        width={"1vw"}
+      />
     </div>
   );
 }

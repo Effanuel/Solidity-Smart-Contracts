@@ -1,13 +1,32 @@
 @import "../../css/root.css";
 
-.Card {
+.Card,
+.Manager,
+.Middle {
   background-color: var(--secondaryColor);
   color: white;
   box-shadow: 2px 2px black;
-  margin: 5px;
+  margin: 3px;
 }
 
-.Card:hover {
+.Card:hover,
+.Manager:hover,
+.Middle:hover {
   box-shadow: 2px 2px var(--accentColor);
   transition: 0.2s;
+}
+.Manager {
+  background-color: #36464d;
+}
+
+.Middle {
+  text-align: center;
+}
+
+.titleStyle {
+  font-size: 25px;
+}
+
+.descStyle {
+  font-size: 20px;
 }

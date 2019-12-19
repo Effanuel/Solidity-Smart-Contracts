@@ -3,13 +3,20 @@ import { Card } from "react-bootstrap";
 
 import "./styles.css";
 
-function CardComponent({ children, title, desc, width }) {
+function CardComponent({
+  children,
+  title,
+  desc,
+  width,
+  height = "150px",
+  cardStyle = "Card"
+}) {
   return (
     <>
-      <Card className="Card" style={{ width }}>
+      <Card className={cardStyle} style={{ width, height }}>
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>{desc}</Card.Text>
+          <Card.Title className="titleStyle">{title}</Card.Title>
+          <Card.Text className="descStyle">{desc}</Card.Text>
           {children}
         </Card.Body>
       </Card>
