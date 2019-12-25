@@ -3,92 +3,16 @@ var Web3 = require("web3");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 var web3 = new Web3();
 
-// const interface = [
-//   {
-//     inputs: [],
-//     payable: false,
-//     stateMutability: "nonpayable",
-//     type: "constructor"
-//   },
-//   {
-//     constant: false,
-//     inputs: [],
-//     name: "enter",
-//     outputs: [],
-//     payable: true,
-//     stateMutability: "payable",
-//     type: "function"
-//   },
-//   {
-//     constant: true,
-//     inputs: [],
-//     name: "getPlayers",
-//     outputs: [
-//       {
-//         internalType: "address payable[]",
-//         name: "",
-//         type: "address[]"
-//       }
-//     ],
-//     payable: false,
-//     stateMutability: "view",
-//     type: "function"
-//   },
-//   {
-//     constant: true,
-//     inputs: [],
-//     name: "manager",
-//     outputs: [
-//       {
-//         internalType: "address",
-//         name: "",
-//         type: "address"
-//       }
-//     ],
-//     payable: false,
-//     stateMutability: "view",
-//     type: "function"
-//   },
-//   {
-//     constant: true,
-//     inputs: [
-//       {
-//         internalType: "uint256",
-//         name: "",
-//         type: "uint256"
-//       }
-//     ],
-//     name: "players",
-//     outputs: [
-//       {
-//         internalType: "address payable",
-//         name: "",
-//         type: "address"
-//       }
-//     ],
-//     payable: false,
-//     stateMutability: "view",
-//     type: "function"
-//   },
-//   {
-//     constant: false,
-//     inputs: [],
-//     name: "winner",
-//     outputs: [],
-//     payable: false,
-//     stateMutability: "nonpayable",
-//     type: "function"
-//   }
 
 //ROPSTEN ADDRESS 0x70d7456D17605E875B053a2df9f2fec41D900Ef5
 
-// const mnemonic =
-//   "tray mobile witness vapor kit omit pride rail cat boss hunt olive";
-// const endpoint =
-//   "https://ropsten.infura.io/v3/4f4f50d269614dd0a4c2d5dc26026507";
+const mnemonic =
+  "tray mobile witness vapor kit omit pride rail cat boss hunt olive";
+const endpoint =
+  "https://ropsten.infura.io/v3/4f4f50d269614dd0a4c2d5dc26026507";
 
-web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8545"));
-// web3.setProvider(new HDWalletProvider(mnemonic, endpoint));
+// web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8545"));
+web3.setProvider(new HDWalletProvider(mnemonic, endpoint));
 
 const deploy = async () => {
   const accounts = await web3.eth.getAccounts();

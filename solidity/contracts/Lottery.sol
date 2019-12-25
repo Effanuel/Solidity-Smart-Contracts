@@ -18,7 +18,7 @@ contract Lottery {
 
     function winner() public restricted returns(address) {
 
-        // assert(msg.sender == manager && players.length != 0);
+        assert(msg.sender == manager && players.length != 0);
         uint i = genRandom() % players.length;
         players[i].transfer(address(this).balance);
         address winner = players[i];

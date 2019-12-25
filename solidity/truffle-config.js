@@ -27,7 +27,7 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 const mnemonic =
   "tray mobile witness vapor kit omit pride rail cat boss hunt olive";
 const endpoint =
-  "https://ropsten.infura.io/v3/4f4f50d269614dd0a4c2d5dc26026507";
+  "https://ropsten.infura.io/v3/f25f9a1ea19b418b9bbefc734bf12a1e";
 
 module.exports = {
   /**
