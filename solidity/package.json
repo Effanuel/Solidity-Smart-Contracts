@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node deploy.js",
-    "test": "mocha"
+    "test": "mocha",
+    "init:packages": "npm install && cd ../lottery && npm install && cd ../solidity"
   },
   "keywords": [],
   "author": "",

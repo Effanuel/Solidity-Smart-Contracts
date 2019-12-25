@@ -8,7 +8,7 @@ import {
   enterLottery
 } from "./redux/actions/lotteryActions";
 
-import manager_address from "./config";
+import { manager_address } from "./config.json";
 import web3 from "./web3";
 
 import "./App.css";
@@ -156,7 +156,8 @@ class App extends React.PureComponent {
                   the pool.
                 </div>
                 <div className="descStyle">
-                  Lottery pool is worth <span>{allTicketCount * 0.025}</span>{" "}
+                  Lottery pool is worth{" "}
+                  <span>{parseFloat(allTicketCount * 0.025).toFixed(3)}</span>{" "}
                   ETH.
                 </div>
               </CardComponent>

@@ -1,0 +1,4 @@
+{
+  "manager_address": "<ADDRESS OF THE ACCOUNT THAT DEPLOYED THE CONTRACT>",
+  "contract_address": "<THE CONTRACT ADDRESS>"
+}

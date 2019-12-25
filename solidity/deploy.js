@@ -1,11 +1,11 @@
 const { bytecode, abi } = require("./compile");
 const HDWalletProvider = require("truffle-hdwallet-provider");
-const { mnemonic, endpoint } = require("./config-truffle.json");
+const { mnemonic, endpoint } = require("./config-ropsten.json");
 var Web3 = require("web3");
 var web3 = new Web3();
 
-// web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8545"));
-web3.setProvider(new HDWalletProvider(mnemonic, endpoint));
+web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8545"));
+// web3.setProvider(new HDWalletProvider(mnemonic, endpoint));
 
 const deploy = async () => {
   const accounts = await web3.eth.getAccounts();
