@@ -12,7 +12,6 @@ import manager_address from "./config";
 import web3 from "./web3";
 
 import "./App.css";
-import lottery from "./lottery";
 
 import {
   ButtonComponent,
@@ -39,10 +38,6 @@ class App extends React.PureComponent {
     await window.ethereum.on("accountsChanged", this.handleAccountChange);
   }
 
-  handleGetTickets = async () => {
-    console.log("a");
-  };
-
   handleAccountChange = async accounts => {
     const currentAccount = accounts[0];
     await this.props.getTicketCount(currentAccount);
@@ -61,10 +56,11 @@ class App extends React.PureComponent {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.id]: event.target.value });
+    const { id, value } = event.target;
+    this.setState({ [id]: value });
   };
 
-  handleEnter = event => {
+  handleEnter = async () => {
     this.props.enterLottery();
   };
 
@@ -72,7 +68,7 @@ class App extends React.PureComponent {
     this.props.getWinner();
   };
   render() {
-    const { players, value, currentAccount, currentBalance } = this.state;
+    const { currentAccount, currentBalance } = this.state;
     const {
       playersLength,
       ticketCount,
@@ -83,94 +79,67 @@ class App extends React.PureComponent {
     } = this.props;
     return (
       <div className="main-container">
-        <TitleComponent manager={this.state.manager} />
-        <div style={{ height: "40px", textAlign: "center" }}>
-          {winner && <h3>Winner was picked. Lottery was reset.</h3>}
-        </div>
+        <TitleComponent manager={this.state.manager} winner={winner} />
         <div className="player-account-container">
           {currentAccount && (
             <>
               <div className="left-side-container">
-                <CardComponent
-                  width="33rem"
-                  title={
-                    <>
-                      Your current balance is{" "}
-                      <b className="accent-c">
-                        {parseFloat(currentBalance)
-                          .toFixed(2)
-                          .toString()}
-                      </b>{" "}
-                      ETH.
-                    </>
-                  }
-                  desc={
-                    <>
-                      You are logged in as{" "}
-                      <b className="accent-c">{currentAccount}</b>.
-                    </>
-                  }
-                />
-
-                <CardComponent
-                  width="33rem"
-                  title={
-                    <>
-                      You have a total of{" "}
-                      <b className="accent-c">{ticketCount}</b> tickets.
-                    </>
-                  }
-                  desc={
-                    <>
-                      You can buy a total of{" "}
-                      <b>{parseInt(currentBalance / 0.025).toString()}</b>{" "}
-                      tickets.
-                    </>
-                  }
-                />
+                <CardComponent>
+                  <div className="titleStyle">
+                    Your current balance is{" "}
+                    <span>
+                      {parseFloat(currentBalance)
+                        .toFixed(2)
+                        .toString()}
+                    </span>{" "}
+                    ETH.
+                  </div>
+                  <div className="descStyle">
+                    You are logged in as <span>{currentAccount}</span>.
+                  </div>
+                </CardComponent>
+                <CardComponent>
+                  <div className="titleStyle">
+                    You have a total of <span>{ticketCount}</span> tickets.
+                  </div>
+                  <div className="descStyle">
+                    You can buy a total of{" "}
+                    <span>{parseInt(currentBalance / 0.025).toString()}</span>{" "}
+                    tickets.
+                  </div>
+                </CardComponent>
               </div>
               <div className="middle-size-container">
-                <CardComponent
-                  cardStyle="Middle"
-                  width="20rem"
-                  height="306px"
-                  title="Enter a lottery!"
-                  desc={
-                    <>
-                      Buy a ticket for
-                      <b className="accent-c" style={{ display: "block" }}>
-                        {" "}
-                        0.025
-                      </b>{" "}
-                      ETH.
-                    </>
-                  }
-                >
-                  <ButtonComponent
-                    text="ENTER"
-                    onClick={this.handleEnter}
-                    style={{
-                      height: "100px",
-                      width: "125px",
-                      fontSize: "25px"
-                    }}
-                  />
+                <CardComponent cardStyle="Middle" width="20rem">
+                  <div className="titleStyle">Enter a lottery!</div>
+                  <div className="descStyle">
+                    Buy a ticket for
+                    <span> 0.025</span> ETH.
+                    <ButtonComponent
+                      text="ENTER"
+                      onClick={this.handleEnter}
+                      style={{
+                        marginTop: "35px",
+                        height: "100px",
+                        width: "125px",
+                        fontSize: "25px"
+                      }}
+                    />
+                  </div>
                 </CardComponent>
               </div>
             </>
           )}
           {currentAccount === "Lottery Manager" && (
             <div className="right-side-container">
-              <CardComponent
-                cardStyle="Manager"
-                width="33rem"
-                title="Manager Settings"
-                desc={
-                  <span style={{ display: "flex", flexDirection: "row" }}>
-                    Settle this lottery{""}
+              <CardComponent cardStyle="Manager">
+                <div className="titleStyle">Manager Settings</div>
+                <div className="descStyle">
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    Settle this lottery
                     <ButtonComponent
                       style={{
-                        marginLeft: "15px",
+                        marginTop: "10px",
                         height: "50px",
                         width: "150px",
                         fontSize: "20px"
@@ -178,34 +147,22 @@ class App extends React.PureComponent {
                       text="Pick a winner"
                       onClick={this.handlePickWinner}
                     />
-                  </span>
-                }
-              ></CardComponent>
-              <CardComponent
-                cardStyle="Manager"
-                width="33rem"
-                title={
-                  <>
-                    There are a total of{" "}
-                    <b className="accent-c">{playersLength}</b> people in the
-                    pool.
-                  </>
-                }
-                desc={
-                  <>
-                    Lottery pool is worth{" "}
-                    <b className="accent-c">{allTicketCount * 0.025}</b> ETH.
-                  </>
-                }
-              ></CardComponent>
+                  </div>
+                </div>
+              </CardComponent>
+              <CardComponent cardStyle="Manager">
+                <div className="titleStyle">
+                  There are a total of <span>{playersLength}</span> people in
+                  the pool.
+                </div>
+                <div className="descStyle">
+                  Lottery pool is worth <span>{allTicketCount * 0.025}</span>{" "}
+                  ETH.
+                </div>
+              </CardComponent>
             </div>
           )}
         </div>
-        {winner && (
-          <div>
-            <h1>WINNER IS {winner}</h1>
-          </div>
-        )}
 
         <h1>{error}</h1>
         {loading && <SpinnerComponent />}

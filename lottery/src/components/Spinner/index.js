@@ -1,14 +1,12 @@
 import React from "react";
 import { BarLoader } from "react-spinners";
-function SpinnerComponent({ loading, height }) {
+
+import "./styles.css";
+
+function SpinnerComponent({ loading }) {
   return (
     <div>
-      <BarLoader
-        color="#00ca45"
-        loading={loading}
-        height={height}
-        width={"1vw"}
-      />
+      <BarLoader color="#00ca45" loading={loading} width={"1vw"} />
     </div>
   );
 }

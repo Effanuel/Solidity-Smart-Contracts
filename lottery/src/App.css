@@ -33,3 +33,18 @@ body {
   color: var(--accentColor);
   text-shadow: 1px 1px black;
 }
+
+.titleStyle {
+  font-size: 24px;
+}
+
+.descStyle {
+  font-size: 15px;
+}
+
+.descStyle > span,
+.titleStyle > span {
+  color: var(--accentColor);
+  text-shadow: 1px 1px black;
+  font-weight: bold;
+}

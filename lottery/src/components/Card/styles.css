@@ -3,6 +3,13 @@
 .Card,
 .Manager,
 .Middle {
+  padding: 10px 15px;
+  height: 150px;
+}
+
+.Card,
+.Manager,
+.Middle {
   background-color: var(--secondaryColor);
   color: white;
   box-shadow: 2px 2px black;
@@ -21,12 +28,5 @@
 
 .Middle {
   text-align: center;
-}
-
-.titleStyle {
-  font-size: 25px;
-}
-
-.descStyle {
-  font-size: 20px;
+  height: 306px;
 }
