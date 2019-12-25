@@ -34,12 +34,15 @@ The Backend was built using **Node + Solidity + Truffle + Ganache** and the Fron
      * When selecting a workspace, set port to be **8545** and not 7545;
 2. **Start Metamask:**
    * Connect to `http://localhost:8545`
+   * Saving your mnemonic phrase
 3. **Select the top wallets from Ganache**
    * Import them into Metamask using private keys *(they should have 100ETH each)*
 4. **Deploy contracts:**
    * Go to `solidity` folder
    * `truffle migrate --reset` *(compiled files will appear in `build` folder)*
-5. After you deploy
+5. After you deploy:
+   * Copy `Lottery.json` contents to `Lottery.json` in `lottery` folder
+   * Get a `contract address` from console output and copy to `lottery.js` file
 
 ### Prerequisites
 
@@ -64,10 +67,10 @@ cd MERN/lottery
 npm install
 ```
 
-3. Build the application:
+3. Start the application:
 
 ```sh
-npm run build
+npm start
 ```
 
 <!-- USAGE EXAMPLES -->
@@ -78,8 +81,7 @@ npm run build
 git clone https://github.com/Effanuel/MERN/archive/v1.0.zip
 cd MERN/backend
 npm run init:packages
-npm run build
-npm run prod
+npm start
 ```
 
 ## Usage
@@ -87,11 +89,32 @@ npm run prod
 ##### Run application:
 
 ```sh
-cd MERN/backend
-npm run prod
+cd lottery
+npm start
 ```
+
+## Ropsten
+### To deploy to Ropsten test network:
+  * Create *infura.io* account, create a project and put endpoint and Metamask mnemonic phrase to `truffle-config.js` file;
+  * Instead of `truffle migrate --reset` do `truffle migrate --network ropsten`;
+
+## Etherscan
+### [Deployed contract to ropsten network](https://ropsten.etherscan.io/address/0xF9189f6549061a5C082dbf061c1449729c810730)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Roadmap
 
 - Proper tests;
-- Fix types;
