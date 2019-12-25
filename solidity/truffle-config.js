@@ -18,16 +18,9 @@
  *
  */
 
-// const HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require("truffle-hdwallet-provider");
-const mnemonic =
-  "tray mobile witness vapor kit omit pride rail cat boss hunt olive";
-const endpoint =
-  "https://ropsten.infura.io/v3/f25f9a1ea19b418b9bbefc734bf12a1e";
+
+const { mnemonic, endpoint } = require("./config-ropsten.json");
 
 module.exports = {
   /**
