@@ -1,3 +1,9 @@
+# Solidity based Lottery application
+
+<p align="center"> 
+  <img src='https://github.com/Effanuel/Solidity-Smart-Contracts/blob/master/assets/Interface_manager.png'>
+</p>
+
 ## Table of Contents
 
 - [Current Features](#current-features)
@@ -15,7 +21,7 @@ This is a lottery application build with contracts.
 ### Current Features
 
 - Host a lottery for other addresses to buy tickets to enter;
-- The winner wins the pot
+- The winner wins the pot.
 
 ### Built With
 
@@ -31,7 +37,7 @@ The Backend was built using **Node + Solidity + Truffle + Ganache**. The Fronten
 
 1. **Start Metamask:**
    
-   * When creating an account, **save your mnemonic phrase**;
+   * When creating an account, **save your mnemonic phrase if you want to connect to Ropsten later**;
    
    * Connect to `http://localhost:8545`
    
@@ -50,15 +56,13 @@ The Backend was built using **Node + Solidity + Truffle + Ganache**. The Fronten
 
    * Go to `solidity` folder;
    * `truffle migrate --reset` *(compiled files will appear in `build` folder)*;
-     * `truffle migrate --network ropsten` for **Ropsten network**.
+     * `truffle migrate --network ropsten` for **Ropsten network**;
+   * Put the latest **manager_address** and **contract_address** of the output console to `lottery/src/config.json` file.
 
 5. **After you deploy:**
 
-   * Copy `Lottery.json` contents to `Lottery.json` in `lottery` folder;
-     * 
-   * Get a `contract address` of the first address that deployed the contract *(This address is going to act as a host)*;
-     * If you are not sure which one it is, the output of the console or the history on one of the addresses should make it clear;
-
+   * Copy `/build/contracts/Lottery.json` contents to `Lottery.json` in `lottery` folder;
+   
 ### Prerequisites
 
 - [Nodejs](https://nodejs.org/en/download/)
@@ -78,7 +82,7 @@ cd Solidity-Smart-Contracts-master/lottery
 2. **Install NPM packages:**
 
 ```sh
-npm install
+npm run init:packages
 ```
 
 3. **Start the application:**
