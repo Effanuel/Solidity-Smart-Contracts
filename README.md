@@ -75,7 +75,7 @@ The Backend was built using **Node + Solidity + Truffle + Ganache**. The Fronten
 1. **Clone the repo or [download zip](https://github.com/Effanuel/Solidity-Smart-Contracts/archive/v1.5.zip):**
 
 ```sh
-git clone https://github.com/Effanuel/Solidity-Smart-Contracts/archive/v1.5.zip
+git clone https://github.com/Effanuel/Solidity-Smart-Contracts.git
 cd Solidity-Smart-Contracts/lottery
 ```
 
